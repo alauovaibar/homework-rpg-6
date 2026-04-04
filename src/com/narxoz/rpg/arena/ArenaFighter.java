@@ -31,9 +31,11 @@ public class ArenaFighter {
     public int getAttackPower() { return attackPower; }
     public int getHealPotions() { return healPotions; }
 
+
     public void takeDamage(int amount) {
         // TODO: Reduce health by amount; clamp health to a minimum of 0.
         health -= amount;
+        health = Math.max(0, health - amount);
     }
 
     public void heal(int amount) {
@@ -41,12 +43,20 @@ public class ArenaFighter {
         // TODO: Decide what happens when healPotions runs out — should healing be blocked?
         health += amount;
         healPotions--;
+        if (healPotions > 0 && health < maxHealth) {
+            health = Math.min(maxHealth, health + amount);
+            healPotions--;
+            System.out.println(name + " Used a potion. Remaining: " + healPotions);
+        } else if (healPotions <= 0) {
+            System.out.println(name + " tried to heal but has no potions left!");
+        }
     }
 
     public void modifyDodgeChance(double delta) {
         // TODO: Add delta to dodgeChance.
         // TODO: Decide whether to clamp dodgeChance between 0.0 and 1.0.
         dodgeChance += delta;
+        dodgeChance = Math.min(1.0, Math.max(0.0, dodgeChance + delta));
     }
 
     public boolean isAlive() {
@@ -54,3 +64,4 @@ public class ArenaFighter {
         return health > 0;
     }
 }
+
