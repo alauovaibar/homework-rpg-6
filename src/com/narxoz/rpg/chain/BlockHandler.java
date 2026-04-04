@@ -9,6 +9,7 @@ public class BlockHandler extends DefenseHandler {
         this.blockPercent = blockPercent;
     }
 
+
     @Override
     public void handle(int incomingDamage, ArenaFighter target) {
         // TODO: Calculate how much damage is blocked: (int)(incomingDamage * blockPercent).
@@ -16,5 +17,8 @@ public class BlockHandler extends DefenseHandler {
         // TODO: Print a block message showing how much was blocked.
         // TODO: Always pass the remainder to the next handler (block reduces but never stops the chain).
         // Design question: what should happen if the remainder reaches 0 or below?
+        int reducedDamage = (int) (incomingDamage *(1.0 - blockPercent));
+        System.out.println("Block reduced damage to "+ reducedDamage);
+        passToNext(reducedDamage, target);
     }
 }
