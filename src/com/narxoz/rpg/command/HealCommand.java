@@ -12,12 +12,16 @@ public class HealCommand implements ActionCommand {
         this.healAmount = healAmount;
     }
 
+
     @Override
     public void execute() {
         // TODO: Check whether the target has heal potions remaining before healing.
         // TODO: Heal the target by healAmount using target.heal(int).
         // TODO: Store how much was actually applied in actualHealApplied (for undo).
         // Hint: actual heal may be less than healAmount if target is near max health.
+        int hpBefore = target.getHealth();
+        target.heal(healAmount);
+        this.actualHealApplied=target.getHealth()-hpBefore;
     }
 
     @Override
@@ -25,11 +29,12 @@ public class HealCommand implements ActionCommand {
         // TODO: Remove the heal that was applied.
         // Note: Use actualHealApplied (what was actually gained), not healAmount.
         // Hint: call target.takeDamage(actualHealApplied) to reverse the heal.
+        target.takeDamage(actualHealApplied);
     }
 
     @Override
     public String getDescription() {
         // TODO: Return a readable summary, e.g. "Heal for 20 HP".
-        return "TODO";
+        return "Heal for "+healAmount+" HP";
     }
 }
