@@ -12,18 +12,18 @@ public abstract class DefenseHandler {
         this.next = next;
         return next;
     }
-
-    protected DefenseHandler getNext() {
-        return next;
+    protected void getNext() {
     }
 
-    protected void passToNext(int damage, ArenaFighter target) {
+
+    public void passToNext(int damage, ArenaFighter target) {
         // TODO: If damage is still greater than 0 and a next handler exists, forward it.
         // TODO: What should happen when there is no next handler but damage is nonzero?
         if (next != null) {
             next.handle(damage, target);
         }
-    }
+        }
 
-    public abstract void handle(int incomingDamage, ArenaFighter target);
+    public void handle(int damage, ArenaFighter target) {
+    }
 }
