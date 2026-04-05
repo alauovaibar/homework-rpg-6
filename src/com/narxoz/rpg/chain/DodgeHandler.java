@@ -12,6 +12,7 @@ public class DodgeHandler extends DefenseHandler {
         this.random = new Random(seed);
     }
 
+
     @Override
     public void handle(int incomingDamage, ArenaFighter target) {
         // TODO: Generate a random double between 0.0 and 1.0 using random.nextDouble().
@@ -19,5 +20,11 @@ public class DodgeHandler extends DefenseHandler {
         //       - Print a dodge message (e.g. "[Dodge] Attack evaded!")
         //       - Stop the chain — do NOT call passToNext.
         // TODO: If the dodge fails, pass the full incomingDamage to the next handler.
+        if (random.nextDouble()<dodgeChance){
+            System.out.println(target.getName()+" dodged the attack!");
+        }
+        else {
+            passToNext(incomingDamage, target);
+        }
     }
 }
